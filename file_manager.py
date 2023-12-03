@@ -57,6 +57,30 @@ def play_game():
         get_person_and_question()
     print('Пока!')
 
+def save_directory_contents():
+    dir_path = os.getcwd()
+    with open("listdir.txt", "w") as file:
+        files = []
+        folders = []
+        for item in os.listdir(dir_path):
+            if os.path.isfile(os.path.join(dir_path, item)):
+                files.append(item)
+            else:
+                folders.append(item)
+
+
+        file.write("Файлы:\n")
+        for file_name in files:
+            file.write(file_name + "\n")
+        file.write("nПапки:\n")
+        for folder_name in folders:
+            file.write(folder_name + "\n")
+
+    print("Содержимое рабочей директории сохранено в файл listdir.txt")
+
+
+
+
 def games():
     while True:
         print("Меню:")
@@ -72,6 +96,7 @@ def games():
         print("10. Мой банковский счет")
         print("11. Смена рабочей директории")
         print("12. Выход")
+        print("13.сохранить содержимое рабочей директории в файл")
 
         choice = input("Выберите пункт меню: ")
 
@@ -100,6 +125,8 @@ def games():
         elif choice == "12":
             print("До свидания!")
             break
+        elif choice == "13":
+            save_directory_contents()
         else:
             print("Неверный пункт меню. Попробуйте снова.")
 games()

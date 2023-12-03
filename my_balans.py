@@ -6,7 +6,6 @@ class User:
     def load_balance(self):
         try:
             with open('balances.txt', 'r' ) as file:
-                line = file.readline()
                 for lin in line:
                     name = lin.strip().split(':')
                     if name[0] == self.name:
@@ -21,7 +20,6 @@ class User:
 
     def up_balance(self, amount):
         self.balance += amount
-
 
 def menu():
     name = input("Введите имя: ")
@@ -40,7 +38,7 @@ def menu():
         user.up_balance(amount)
         user.save_balance()
         print(f"Баланс успешно пополнен. Твой текущий баланс: {user.balance}")
-menu()
+
 
 
 
