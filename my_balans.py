@@ -1,15 +1,15 @@
 import os
-import pickle
+import ast
 
 
 class User:
-    def __init__(self,name):
+    def __init__(self, name):
         self.name = name
         self.balance = 0
 
     def load_balance(self):
         try:
-            with open('balances.txt', 'r' ) as file:
+            with open('balances.txt', 'r') as file:
                 for lin in file:
                     name = lin.strip().split(':')
                     if name[0] == self.name:
@@ -25,16 +25,13 @@ class User:
     def up_balance(self, amount):
         self.balance += amount
 
+
 def menu():
     my_bills = {}
 
     name = input('Введите имя ')
     user = User(name)
-    if os.path.exists('balances.txt''a'):
-        with open('balances.txt', 'r' ) as file:
-            for lin in file:
-                return lin
-
+    user.load_balance()
     if name in my_bills:
         print(f"Привет, {user.name}! Твой текущий баланс: {user.balance}")
     else:
@@ -49,7 +46,7 @@ def menu():
         user.up_balance(amount)
         user.save_balance()
         print(f"Баланс успешно пополнен {user.name},  текущий баланс: {user.balance}")
-        print(my_bills)
+
 
 
 menu()
