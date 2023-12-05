@@ -1,3 +1,7 @@
+import os
+import pickle
+
+
 class User:
     def __init__(self,name):
         self.name = name
@@ -6,8 +10,7 @@ class User:
     def load_balance(self):
         try:
             with open('balances.txt', 'r' ) as file:
-                line = file.readline()
-                for lin in line:
+                for lin in file:
                     name = lin.strip().split(':')
                     if name[0] == self.name:
                         self.balance = int(self.balance)
@@ -17,30 +20,36 @@ class User:
 
     def save_balance(self):
         with open('balances.txt', 'a') as file:
-            file.write(f"{self.name}balanc:{self.balance}\n")
+            file.write(f"{self.name}:{self.balance}\n")
 
     def up_balance(self, amount):
         self.balance += amount
 
-
 def menu():
-    name = input("Введите имя: ")
+    my_bills = {}
+
+    name = input('Введите имя ')
     user = User(name)
-    user.load_balance()
-    if user.balance == 0:
-       #print(f"Привет, {user.name}! Твой баланс: {user.balance}")
-        print("Имя не найдено, создаем нового пользователя.")
-    else:
+    if os.path.exists('balances.txt''a'):
+        with open('balances.txt', 'r' ) as file:
+            for lin in file:
+                return lin
+
+    if name in my_bills:
         print(f"Привет, {user.name}! Твой текущий баланс: {user.balance}")
+    else:
+        print("Имя не найдено, создаем нового пользователя.")
+        new_bill = User(name)
+        my_bills[name] = new_bill
 
-    choice = input("Хотите пополнить баланс? (да/нет): ")
+    choice = input("Хотите пополнить баланс? (yes/no): ")
 
-    if choice.lower() == 'да':
+    if choice.lower() == 'yes':
         amount = int(input("Введите сумму пополнения: "))
         user.up_balance(amount)
         user.save_balance()
-        print(f"Баланс успешно пополнен. Твой текущий баланс: {user.balance}")
+        print(f"Баланс успешно пополнен {user.name},  текущий баланс: {user.balance}")
+        print(my_bills)
+
+
 menu()
-
-
-
